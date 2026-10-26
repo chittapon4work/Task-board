@@ -1,21 +1,29 @@
-type Priority = "high" | "low";
+type Priority = "high" | "medium" | "low";
 type Task = {
   id: number;
   title: string;
   done: boolean;
   priority: Priority;
 };
+
+const borderColor: Record<Priority,string> = {
+  high: "border-red-500",
+  medium: "border-yellow-500",
+  low: "border-gray-500"
+}
+
 function Card({ title, done, priority }: Omit<Task,"id">) {
   return (  
-    <div className={priority === "high" ? "border border-red-500 p-3" : "border border-gray-500 p-3"}>
+    <div className={`border p-3 ${borderColor[priority]}`}>
       {done ? "✅" : "⬜"} {title}
     </div>
     )
 }
+
 const tasks:Task[] =[
   { id: 1 ,title: "เรียน React" ,done: false ,priority: "high"},
   { id: 2 ,title: "ทำ portfolio" ,done: false ,priority: "low"},
-  { id: 3 ,title: "learn some NEXT.js" ,done: false ,priority: "high"}
+  { id: 3 ,title: "learn some NEXT.js" ,done: false ,priority: "medium"}
 ]
 
 
