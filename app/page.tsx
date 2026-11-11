@@ -1,37 +1,23 @@
-type Priority = "high" | "medium" | "low";
-type Task = {
-  id: number;
-  title: string;
-  done: boolean;
-  priority: Priority;
-};
+"use client";
+import Card from "./components/Card"
+import type { Task } from "./types"
+import { useState } from "react"
 
-const borderColor: Record<Priority,string> = {
-  high: "border-red-500",
-  medium: "border-yellow-500",
-  low: "border-gray-500"
-}
 
-function Card({ title, done, priority }: Omit<Task,"id">) {
-  return (  
-    <div className={`border p-3 ${borderColor[priority]}`}>
-      {done ? "✅" : "⬜"} {title}
-    </div>
-    )
-}
-
-const tasks:Task[] =[
-  { id: 1 ,title: "เรียน React" ,done: false ,priority: "high"},
-  { id: 2 ,title: "ทำ portfolio" ,done: false ,priority: "low"},
-  { id: 3 ,title: "learn some NEXT.js" ,done: false ,priority: "medium"}
-]
 
 
 export default function Home() {
+  const [tasks] = useState<Task[]>([
+  { id: 1 ,title: "เรียน React" ,done: false ,priority: "high", note: "react"},
+  { id: 2 ,title: "ทำ portfolio" ,done: false ,priority: "low", note: "เพิ่มรูป"},
+  { id: 3 ,title: "learn some NEXT.js" ,done: false ,priority: "medium", note: "เพิ่มผลงาน"},
+  { id: 4 ,title: "ทำงานบ้าน" ,done: true ,priority: "medium", note: "ล้างจาน"},
+  ])
+
   return (
     <main className="p-8 space-y-2">
       {tasks.map((t) => (
-        <Card key={t.id} title={t.title} done={t.done} priority={t.priority}/>
+        <Card key={t.id} title={t.title} done={t.done} priority={t.priority} note={t.note} />
       ))}
     </main>
   )
