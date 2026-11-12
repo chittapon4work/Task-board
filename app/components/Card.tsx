@@ -6,11 +6,16 @@ const borderColor: Record<Priority,string> = {
   low: "border-gray-500"
 }
 
-export default function Card({ title, done, priority, note }: Omit<Task,"id">) {
-  return (  
-    <div className={`border p-3 ${borderColor[priority]}`}>
+type CardProps = Omit<Task,"id"> & {onToggle: () => void}
+
+export default function Card({ title, done, priority, note, onToggle }: CardProps) {
+  return (
+    <div
+      onClick={onToggle}
+      className={`border p-3 cursor-pointer ${borderColor[priority]}`}
+    >
       {done ? "✅" : "⬜"} {title}
       {note && <p className="text-gray-500 mt-2">{note}</p>}
     </div>
-    )
+  );
 }
